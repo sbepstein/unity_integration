@@ -7,10 +7,10 @@ Create a new Unity Project.
 Download and Import the `Unity ARKit Plugin` from the Asset Store.
 
 #### 3:
-In the "Project" window, navigate to the folder: `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface` and add the C# script file: [UnityMapsyncLibNativeInterface.cs](https://bitbucket.org/Amichai/mapsync-and-unity/raw/b2b3e4549c69224582d8ac7109a591a6248ccb51/UnityMapsyncLibNativeInterface.cs).
+In the "Project" window, navigate to the folder: `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface` and add the C# script file: [UnityMapsyncLibNativeInterface.cs](https://github.com/jidomaps/unity_integration/blob/master/UnityMapsyncLibNativeInterface.cs).
 
 #### 4:
-Replace `UnityARSessionNativeInterface.cs` with [UnityARSessionNativeInterface.cs](https://bitbucket.org/Amichai/mapsync-and-unity/raw/b2b3e4549c69224582d8ac7109a591a6248ccb51/UnityARSessionNativeInterface.cs).
+Replace `UnityARSessionNativeInterface.cs` with [UnityARSessionNativeInterface.cs](https://github.com/jidomaps/unity_integration/blob/master/UnityARSessionNativeInterface.cs).
 
 The new `UnityARSessionNativeInterface.cs` adds the following line below line 417: 
 ```
@@ -21,7 +21,7 @@ The new `UnityARSessionNativeInterface.cs` adds the following line below line 41
 
 
 #### 5:
-Replace `ARSessionNative.mm` (also in `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface`) with [ARSessionNative.mm](https://bitbucket.org/Amichai/mapsync-and-unity/raw/b2b3e4549c69224582d8ac7109a591a6248ccb51/ARSessionNative.mm).
+Replace `ARSessionNative.mm` (also in `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface`) with [ARSessionNative.mm](https://github.com/jidomaps/unity_integration/blob/master/ARSessionNative.mm).
 
 The new `ARSession.mm` adds:
 
@@ -69,7 +69,7 @@ extern "C" void _SaveAsset(char* json)
 In the Unity player settings, set the iOS deployment target to version 11.0. Build and run the Unity project for the iOS platform.
 
 #### 7:
-Add the file [AssetModel.cs](https://bitbucket.org/Amichai/mapsync-and-unity/raw/b2b3e4549c69224582d8ac7109a591a6248ccb51/AssetModel.cs) to the Unity project folder.
+Add the file [AssetModel.cs](https://github.com/jidomaps/unity_integration/blob/master/AssetModel.cs) to the Unity project folder.
 
 #### 8:
 Update the developer key placeholder value with a real developer key in `UnityMapsyncLibNativeInterface.cs` line 28.
@@ -89,7 +89,7 @@ Attach this MonoBehavior to a Unity object and then update the variable `unityAs
 Build and run the Unity project for the iOS platform
 
 #### 11:
-In the newly created project directory download [Podfile](https://bitbucket.org/Amichai/mapsync-and-unity/raw/b2b3e4549c69224582d8ac7109a591a6248ccb51/Podfile) and [MapsyncLib.podspec](https://bitbucket.org/Amichai/mapsync-and-unity/raw/b2b3e4549c69224582d8ac7109a591a6248ccb51/MapsyncLib.podspec).
+In the newly created project directory download [Podfile](https://github.com/jidomaps/unity_integration/blob/master/Podfile) and [MapsyncLib.podspec](https://github.com/jidomaps/unity_integration/blob/master/MapsyncLib.podspec).
 
 The content of `Podfile`:
 ```
@@ -107,7 +107,7 @@ Run `pod install` in the terminal from within that same project directory.
 Close XCode and re-open the newly created `.xcworkspace` file.
 
 #### 14: 
-Download [MapsyncWrapper.h](https://bitbucket.org/Amichai/mapsync-and-unity/raw/b2b3e4549c69224582d8ac7109a591a6248ccb51/MapsyncWrapper.h) and [MapsyncWrapper.m](https://bitbucket.org/Amichai/mapsync-and-unity/raw/b2b3e4549c69224582d8ac7109a591a6248ccb51/MapSyncWrapper.m) into the workspace `Classes` folder.
+Download [MapsyncWrapper.h](https://github.com/jidomaps/unity_integration/blob/master/MapsyncWrapper.h) and [MapsyncWrapper.m](https://github.com/jidomaps/unity_integration/blob/master/MapSyncWrapper.m) into the workspace `Classes` folder.
 
 #### Notes:
  - You will need to set Swift Versions for SwiftyJSON and Alamofire cocoapods in XCode.
