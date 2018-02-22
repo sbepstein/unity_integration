@@ -1132,12 +1132,12 @@ extern "C" void GetBlendShapesInfo(void* ptrDictionary, void (*visitorFn)(const 
 #endif
 }
 
-extern "C" void* _CreateMapsyncSession(void* nativeSession, char* mapId, char* appId, char* userId, char* developerKey, BOOL isMappingMode, char* unityAssetLoadedCallbackGameObject, char* unityAssetLoadedCallbackFunction)
+extern "C" void* _CreateMapsyncSession(void* nativeSession, char* mapId, char* userId, char* developerKey, BOOL isMappingMode)
 {
     Mode mode = isMappingMode ? ModeMapping : ModeLocalization;
     UnityARSession* session = (__bridge UnityARSession*)nativeSession;
     
-    [MapsyncWrapper sharedInstanceWithARSession:session->_session mapMode:mode appId:[NSString stringWithUTF8String:appId] mapId:[NSString stringWithUTF8String:mapId] userId:[NSString stringWithUTF8String:userId] developerKey:[NSString stringWithUTF8String:developerKey] unityAssetLoadedCallbackGameObject:[NSString stringWithUTF8String:unityAssetLoadedCallbackGameObject] unityAssetLoadedCallbackFunction:[NSString stringWithUTF8String:unityAssetLoadedCallbackFunction]];
+    [MapsyncWrapper sharedInstanceWithARSession:session->_session mapMode:mode mapId:[NSString stringWithUTF8String:mapId] userId:[NSString stringWithUTF8String:userId] developerKey:[NSString stringWithUTF8String:developerKey]];
     
     return (__bridge_retained void*) [MapsyncWrapper sharedInstance];
 }
@@ -1162,4 +1162,12 @@ extern "C" void _SaveAsset(char* json)
     SCNVector3 position = SCNVector3Make([positionVals[@"x"] floatValue], [positionVals[@"y"] floatValue], [positionVals[@"z"] floatValue]);
     CGFloat orientation = [object[@"orientation"] floatValue];
     [[MapsyncWrapper sharedInstance] uploadAssetWithID:assetId position:position orientation:orientation];
+}
+
+extern "C" void _RegisterUnityCallbacks(char* callbackGameObject, char* assetLoadedCallback, char* statusUpdatedCallback, char* storePlacementCallback)
+{
+    [MapsyncWrapper setUnityCallbackGameObject:[NSString stringWithUTF8String:callbackGameObject]];
+    [MapsyncWrapper setAssetLoadedCallbackFunction:[NSString stringWithUTF8String:assetLoadedCallback]];
+    [MapsyncWrapper setStatusUpdatedCallbackFunction:[NSString stringWithUTF8String:statusUpdatedCallback]];
+    [MapsyncWrapper setStorePlacementCallbackFunction:[NSString stringWithUTF8String:storePlacementCallback]];
 }

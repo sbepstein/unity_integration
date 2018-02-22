@@ -14,15 +14,19 @@ typedef NS_ENUM(NSInteger, Mode)
 
 @interface MapsyncWrapper : NSObject
 
-+ (instancetype)sharedInstanceWithARSession:(ARSession *)session mapMode:(Mode)mode appId:(NSString*) appId mapId: (NSString*) mapId userId:(NSString*) userId developerKey: (NSString*) developerKey unityAssetLoadedCallbackGameObject: (NSString*) unityAssetLoadedCallbackGameObject unityAssetLoadedCallbackFunction: (NSString*) unityAssetLoadedCallbackFunction;
++ (instancetype)sharedInstanceWithARSession:(ARSession *)session mapMode:(Mode)mode mapId: (NSString*) mapId userId:(NSString*) userId developerKey: (NSString*) developerKey;
 
 + (instancetype)sharedInstance;
 
-- (instancetype)initWithARSession:(ARSession *)session appId:(NSString*) appId mapId: (NSString*) mapId userId:(NSString*) userId developerKey: (NSString*) developerKey unityAssetLoadedCallbackGameObject: (NSString*) unityAssetLoadedCallbackGameObject unityAssetLoadedCallbackFunction: (NSString*) unityAssetLoadedCallbackFunction;
++ (void)setUnityCallbackGameObject:(NSString*)objectName;
++ (void)setAssetLoadedCallbackFunction:(NSString*)functionName;
++ (void)setStatusUpdatedCallbackFunction:(NSString*)functionName;
++ (void)setStorePlacementCallbackFunction:(NSString*)functionName;
+
+- (instancetype)initWithARSession:(ARSession *)session mapId: (NSString*) mapId userId:(NSString*) userId developerKey: (NSString*) developerKey;
 
 - (void)uploadAssetWithID:(NSString *)assetID position:(SCNVector3)position orientation:(CGFloat)orientation;
 
 - (void)updateWithFrame:(ARFrame*)frame;
 
 @end
-

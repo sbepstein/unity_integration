@@ -333,6 +333,15 @@ namespace UnityEngine.XR.iOS {
         private IntPtr m_NativeARSession;
 #endif
 
+        public IntPtr GetSession() 
+        {
+            #if !UNITY_EDITOR
+                return m_NativeARSession;
+            #else
+                return IntPtr.Zero;
+            #endif
+        }
+
         private static UnityARCamera s_Camera;
         
         [DllImport("__Internal")]
@@ -415,7 +424,6 @@ namespace UnityEngine.XR.iOS {
         {
 #if !UNITY_EDITOR
             m_NativeARSession = unity_CreateNativeARSession();
-            UnityMapsyncLibNativeInterface.Initialize (m_NativeARSession);
             session_SetSessionCallbacks(m_NativeARSession, _frame_update, _ar_session_failed, _ar_session_interrupted, _ar_session_interruption_ended, _ar_tracking_changed);
             session_SetPlaneAnchorCallbacks(m_NativeARSession, _anchor_added, _anchor_updated, _anchor_removed);
             session_SetUserAnchorCallbacks(m_NativeARSession, _user_anchor_added, _user_anchor_updated, _user_anchor_removed);

@@ -1,6 +1,7 @@
 ﻿using System;
+using UnityEngine;
 
-public class AssetModel
+public class MapAsset
 {
 	private float orientation;
 	public float Orientation {
@@ -52,7 +53,13 @@ public class AssetModel
 		}
 	}
 
-	public AssetModel(string assetId, float orientation, float x, float y, float z) {
+	public Vector3 Position {
+		get {
+			return new Vector3 (X, Y, Z);
+		}
+	}
+
+	public MapAsset(string assetId, float orientation, float x, float y, float z) {
 		this.AssetId = assetId;
 		this.Orientation = orientation;
 		this.X = x;
@@ -60,12 +67,15 @@ public class AssetModel
 		this.Z = z;
 	}
 
+	public MapAsset(string assetId, float orientation, Vector3 position) : this(assetId, orientation, position.x, position.y, position.z) {
+	}
+
 	public string ToJson() {
 		string positionJson = string.Format ("\"position\" : {{\"x\" : {0:0.######}, \"y\" : {1:0.######}, \"z\" : {2:0.######} }}", X, Y, Z);;
 		return string.Format ("{{ \"assetId\" : \"{0}\", \"orientation\" : {1}, {2} }}", assetId, orientation, positionJson);
 	}
 
-	public static AssetModel FromJson(string json) {
+	public static MapAsset FromJson(string json) {
 		string assetId = "";
 		float orientation = 0, x = 0, y = 0, z = 0;
 		string[] parts = json.Split (':');
@@ -90,7 +100,7 @@ public class AssetModel
 			}
 		}
 
-		return new AssetModel(assetId, orientation, x, y, z);
+		return new MapAsset(assetId, orientation, x, y, z);
 	}
 
 	private static float parseFloat(string inspection) {
