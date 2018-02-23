@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, Mode)
 
 - (instancetype)initWithARSession:(ARSession *)session mapId: (NSString*) mapId userId:(NSString*) userId developerKey: (NSString*) developerKey;
 
-- (void)uploadAssetWithID:(NSString *)assetID position:(SCNVector3)position orientation:(CGFloat)orientation;
+- (void)uploadAssets:(NSArray*)array;
 
 - (void)updateWithFrame:(ARFrame*)frame;
 

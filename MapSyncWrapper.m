@@ -74,26 +74,32 @@ static NSString* storePlacementCallback = @"";
     
         self.mapSession = [[MapSession alloc] initWithArSession:self.session mapMode:mode userID:self.userId mapID:self.mapId developerKey:developerKey assetsFoundCallback:^(NSArray<MapAsset *> * assets) {
             
+            NSMutableArray *assetData = [[NSMutableArray alloc] init];
             for (MapAsset *asset in assets)
             {
-                NSError* error;
                 NSDictionary* dict = [NSMutableDictionary dictionary];
-                [dict setValue:asset.assetID forKey:@"assetId"];
-                NSDictionary* pos = [NSMutableDictionary dictionary];
-                [pos setValue:@(asset.position.x) forKey:@"x"];
-                [pos setValue:@(asset.position.y) forKey:@"y"];
-                [pos setValue:@(asset.position.z) forKey:@"z"];
-                [dict setValue:@(asset.orientation) forKey:@"orientation"];
-                [dict setValue:pos forKey:@"position"];
+                [dict setValue:asset.assetID forKey:@"AssetId"];
+                [dict setValue:@(asset.position.x) forKey:@"X"];
+                [dict setValue:@(asset.position.y) forKey:@"Y"];
+                [dict setValue:@(asset.position.z) forKey:@"Z"];
+                [dict setValue:@(asset.orientation) forKey:@"Orientation"];
                 
-                NSData* jsonData = [NSJSONSerialization dataWithJSONObject:dict
-                                                                   options:NSJSONWritingPrettyPrinted error:&error];
+                [assetData addObject:dict];
                 
-                NSString* json = [[NSString alloc] initWithData:jsonData encoding:NSASCIIStringEncoding];
-                
-                NSLog(@"%@", json);
-                UnitySendMessage([unityCallbackGameObject cStringUsingEncoding:NSASCIIStringEncoding], [assetLoadedCallback cStringUsingEncoding:NSASCIIStringEncoding], [json cStringUsingEncoding:NSASCIIStringEncoding]);
             }
+            
+            NSDictionary* assetsDict = [NSMutableDictionary dictionary];
+            [assetsDict setValue:assetData forKey:@"Assets"];
+            
+            NSError* error;
+            
+            NSData* jsonData = [NSJSONSerialization dataWithJSONObject:assetsDict
+                                                               options:NSJSONWritingPrettyPrinted error:&error];
+            
+            NSString* json = [[NSString alloc] initWithData:jsonData encoding:NSASCIIStringEncoding];
+            
+            NSLog(@"%@", json);
+            UnitySendMessage([unityCallbackGameObject cStringUsingEncoding:NSASCIIStringEncoding], [assetLoadedCallback cStringUsingEncoding:NSASCIIStringEncoding], [json cStringUsingEncoding:NSASCIIStringEncoding]);
             
         } statusCallback:^(enum MapStatus mapStatus) {
             NSLog(@"mapStatus: %li", mapStatus);
@@ -105,20 +111,19 @@ static NSString* storePlacementCallback = @"";
      return self;
 }
 
-- (void)uploadAssetWithID:(NSString *)assetID position:(SCNVector3)position orientation:(CGFloat)orientation
-{
+- (void)uploadAssets:(NSArray*)array {
     if (self.mode != ModeMapping)
     {
         NSLog(@"Error, not in mapping mode");
         return;
     }
     
-     MapAsset *asset = [[MapAsset alloc] init:assetID :position :orientation];
-     BOOL result = [self.mapSession storePlacementWithAssets:@[asset] callback:^(BOOL stored)
-      {
-          NSLog(@"model stored: %i", stored);
-          UnitySendMessage([unityCallbackGameObject cStringUsingEncoding:NSASCIIStringEncoding], [storePlacementCallback cStringUsingEncoding:NSASCIIStringEncoding], [[NSString stringWithFormat:@"%d", stored] cStringUsingEncoding:NSASCIIStringEncoding]);
-      }];
+    BOOL result = [self.mapSession storePlacementWithAssets:array callback:^(BOOL stored)
+    {
+       NSLog(@"model stored: %i", stored);
+       UnitySendMessage([unityCallbackGameObject cStringUsingEncoding:NSASCIIStringEncoding], [storePlacementCallback cStringUsingEncoding:NSASCIIStringEncoding], [[NSString stringWithFormat:@"%d", stored] cStringUsingEncoding:NSASCIIStringEncoding]);
+    }];
+    
 }
 
 - (void) updateWithFrame:(ARFrame*)frame

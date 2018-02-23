@@ -10,7 +10,7 @@ namespace UnityEngine.XR.iOS {
 		private static extern IntPtr _CreateMapsyncSession(IntPtr arSession, string mapId, string userId, string developerKey, bool isMappingMode);
 
 		[DllImport("__Internal")]
-		private static extern void _SaveAsset(string assetJson);
+		private static extern void _SaveAssets(string assetJson);
 
 		[DllImport("__Internal")]
 		private static extern void _RegisterUnityCallbacks(string callbackGameObject, string assetReloadedCallback, string statusUpdatedCallback, string storePlacementCallback);
@@ -29,7 +29,7 @@ namespace UnityEngine.XR.iOS {
 
 			_CreateMapsyncSession(arSession, mapId, userId, developerKey, isMappingMode);
 
-			string unityCallbackGameObject = "MapsyncLib";
+			string unityCallbackGameObject = "MapsyncSession";
 			string unityAssetLoadedCallbackFunction = "AssetReloaded";
 			string unityStatusUpdatedCallback = "StatusUpdated";
 			string unityStorePlacementCallback = "PlacementStored";
@@ -39,10 +39,21 @@ namespace UnityEngine.XR.iOS {
 		public void SaveAsset(Vector3 position, string assetId, float orientation)
 		{
 			MapAsset asset = new MapAsset (assetId, orientation, position.x, position.y, position.z);
-			string assetJson = asset.ToJson ();
+			string assetJson = JsonUtility.ToJson (asset);
 
 			Debug.Log ("Asset json: " + assetJson);
-			_SaveAsset(assetJson);
+			_SaveAssets("[" + assetJson + "]");
+		}
+
+		public void SaveAssets(List<MapAsset> assets) {
+			MapAssets mapAssets = new MapAssets () {
+				Assets = assets
+			};
+
+			string assetJson = JsonUtility.ToJson (mapAssets);
+
+			Debug.Log ("Asset json: " + assetJson);
+			_SaveAssets(assetJson);
 		}
 	}
 

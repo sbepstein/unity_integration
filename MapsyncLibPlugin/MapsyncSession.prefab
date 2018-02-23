@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114887737467557270}
   - component: {fileID: 114792311999422744}
   m_Layer: 0
-  m_Name: MapsyncLib
+  m_Name: MapsyncSession
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
