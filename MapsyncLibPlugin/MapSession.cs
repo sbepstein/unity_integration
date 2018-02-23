@@ -28,15 +28,14 @@ public class MapSession : MonoBehaviour {
 		mapsyncInterface = new UnityMapsyncLibNativeInterface(mapId, userId, developerKey, mapMode == MapMode.MapModeMapping);
 	}
 
-	public void StorePlacement(MapAsset asset) {
+	public void StorePlacements(List<MapAsset> assets) {
 		if (Mode == MapMode.MapModeMapping) {
-			mapsyncInterface.SaveAsset (asset.Position, asset.AssetId, asset.Orientation);
+			mapsyncInterface.SaveAssets (assets);
 		}
 	}
 
 	private void AssetReloaded(string assetJson) {
 		MapAssets assets = JsonUtility.FromJson<MapAssets> (assetJson);
-//		MapAsset mapAsset = MapAsset.FromJson (assetJson);
 		foreach (MapAsset asset in assets.Assets) {
 			AssetLoadedEvent (asset);
 		}

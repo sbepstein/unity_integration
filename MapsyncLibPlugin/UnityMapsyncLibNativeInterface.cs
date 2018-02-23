@@ -36,15 +36,6 @@ namespace UnityEngine.XR.iOS {
 			_RegisterUnityCallbacks (unityCallbackGameObject, unityAssetLoadedCallbackFunction, unityStatusUpdatedCallback, unityStorePlacementCallback);
 		}
 
-		public void SaveAsset(Vector3 position, string assetId, float orientation)
-		{
-			MapAsset asset = new MapAsset (assetId, orientation, position.x, position.y, position.z);
-			string assetJson = JsonUtility.ToJson (asset);
-
-			Debug.Log ("Asset json: " + assetJson);
-			_SaveAssets("[" + assetJson + "]");
-		}
-
 		public void SaveAssets(List<MapAsset> assets) {
 			MapAssets mapAssets = new MapAssets () {
 				Assets = assets
