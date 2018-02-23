@@ -4,22 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.iOS;
 
-public class MapsyncSession : MonoBehaviour {
+public class MapSession : MonoBehaviour {
 	private UnityMapsyncLibNativeInterface mapsyncInterface = null;
 	public MapMode Mode;
 
 	public delegate void StatusDelegate(MapStatus status);
-	public StatusDelegate statusChangedEvent;
+	public StatusDelegate StatusChangedEvent;
 
 	public delegate void AssetDelegate(MapAsset asset);
-	public AssetDelegate assetLoadedEvent;
+	public AssetDelegate AssetLoadedEvent;
 
 	public delegate void BoolDelegate(bool value);
-	public BoolDelegate assetStoredEvent;
+	public BoolDelegate AssetStoredEvent;
 
 	public void Init(MapMode mapMode, string userId, string mapId, string developerKey) {
 		if (mapsyncInterface != null) {
 			Debug.Log ("Warning: Mapsync has already been initialized and cannot be initialized again.");
+			return;
 		}
 
 		this.Mode = mapMode;
@@ -37,16 +38,16 @@ public class MapsyncSession : MonoBehaviour {
 		MapAssets assets = JsonUtility.FromJson<MapAssets> (assetJson);
 //		MapAsset mapAsset = MapAsset.FromJson (assetJson);
 		foreach (MapAsset asset in assets.Assets) {
-			assetLoadedEvent (asset);
+			AssetLoadedEvent (asset);
 		}
 	}
 
 	private void StatusUpdated(string status) {
 		int asInt = int.Parse (status);
-		statusChangedEvent ((MapStatus)asInt);
+		StatusChangedEvent ((MapStatus)asInt);
 	}
 
 	private void PlacementStored(string stored) {
-		assetStoredEvent (stored == "1");
+		AssetStoredEvent (stored == "1");
 	}
 }

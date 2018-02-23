@@ -87,7 +87,7 @@ extern "C" void _RegisterUnityCallbacks(char* callbackGameObject, char* assetLoa
 ```
 
 #### 6: 
-Drag the MapsyncSession prefab into the scene hierarchy.
+Drag the MapSession prefab into the scene hierarchy.
 
 #### 7:
 In the Unity player settings, set the iOS deployment target to version 11.0. Build and run the Unity project for the iOS platform.
@@ -117,12 +117,14 @@ Close the XCode project and re-open the newly created `.xcworkspace` file.
 Download [MapsyncWrapper.h](https://github.com/jidomaps/unity_integration/blob/master/MapsyncWrapper.h) and [MapsyncWrapper.m](https://github.com/jidomaps/unity_integration/blob/master/MapSyncWrapper.m) into the workspace `Classes` folder.
 
 #### 13:
-In your C# code, get the Mapsync component and initialize it with the `Init()` function:
+In your C# code, get the MapSession component and initialize it with the `Init()` function:
 
 ```
-GameObject mapsyncGameObject = GameObject.Find("MapsyncSession");
-MapsyncSession mapsync = mapsyncGameObject.GetComponent<MapsyncSession> ();
+GameObject mapSessionGameObject = GameObject.Find("MapSession");
+MapSession mapSession = mapSessionGameObject.GetComponent<MapSession> ();
 ```
+
+Bind to the events: `MapSession.StatusChangedEvent`, `MapSession.AssetLoadedEvent`, and `MapSession.AssetStoredEvent`.
 
 #### Notes:
  - You will need to set Swift Versions for SwiftyJSON and Alamofire cocoapods in XCode.
