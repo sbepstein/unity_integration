@@ -7,7 +7,7 @@ Create a new Unity Project.
 Download and Import the `Unity ARKit Plugin` from the Asset Store.
 
 #### 3:
-Download the folder [MapsyncLibPlugin](fixme) and drag it into the project window.
+Download the folder [MapsyncLibPlugin](https://github.com/jidomaps/unity_integration/tree/master/MapsyncLibPlugin) and drag it into the project window.
 
 #### 4:
 Replace `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface/UnityARSessionNativeInterface.cs` with [UnityARSessionNativeInterface.cs](https://github.com/jidomaps/unity_integration/blob/master/UnityARSessionNativeInterface.cs).
@@ -93,7 +93,7 @@ Drag the MapsyncSession prefab into the scene hierarchy.
 In the Unity player settings, set the iOS deployment target to version 11.0. Build and run the Unity project for the iOS platform.
 
 #### 8:
-Build and run the Unity project for the iOS platform
+Build and run the Unity project for the iOS platform.
 
 #### 9:
 In the newly created project directory download [Podfile](https://github.com/jidomaps/unity_integration/blob/master/Podfile) and [MapsyncLib.podspec](https://github.com/jidomaps/unity_integration/blob/master/MapsyncLib.podspec).
