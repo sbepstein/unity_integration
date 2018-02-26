@@ -6,10 +6,15 @@ Create a new Unity Project.
 #### 2:
 Download and Import the `Unity ARKit Plugin` from the Asset Store.
 
-#### 3:
-Download the folder [MapsyncLibPlugin](https://github.com/jidomaps/unity_integration/tree/master/MapsyncLibPlugin) and drag it into the project window.
+#### 3: 
+Download this Unity Integration repository to your computer so you can easily copy over the files you need into your Unity project.
 
 #### 4:
+Drag the folder [MapsyncLibPlugin](https://github.com/jidomaps/unity_integration/tree/master/MapsyncLibPlugin) into the Unity project window. The `MapsyncLibPlugin` folder contains a `MapSession` prefab and a `MapSession.cs` script that exposes functionality for saving and relocalizing assets in a Unity project.
+
+[gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/Drag.gif)
+
+#### 5:
 Replace `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface/UnityARSessionNativeInterface.cs` with [UnityARSessionNativeInterface.cs](https://github.com/jidomaps/unity_integration/blob/master/UnityARSessionNativeInterface.cs).
 
 The new `UnityARSessionNativeInterface.cs` adds the following method: 
@@ -24,8 +29,10 @@ public IntPtr GetSession()
 }
 ```
 
-#### 5:
+#### 6:
 Replace `ARSessionNative.mm` (also in `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface`) with [ARSessionNative.mm](https://github.com/jidomaps/unity_integration/blob/master/ARSessionNative.mm).
+
+[gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/ReplaceARSessionNative.gif)
 
 The new `ARSession.mm` adds:
 
@@ -86,16 +93,22 @@ extern "C" void _RegisterUnityCallbacks(char* callbackGameObject, char* assetLoa
 }
 ```
 
-#### 6: 
+#### 7: 
 Drag the MapSession prefab into the scene hierarchy.
 
-#### 7:
-In the Unity player settings, set the iOS deployment target to version 11.0. Build and run the Unity project for the iOS platform.
+[gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/DragMapsyncPrefab.gif)
 
 #### 8:
-Build and run the Unity project for the iOS platform.
+In the Unity player settings, set the iOS deployment target to version 11.0. Build and run the Unity project for the iOS platform.
+
+![alt text](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/iOSVersion.png)
 
 #### 9:
+Build and run the Unity project for the iOS platform.
+
+![alt text](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/BuildAndRun.png)
+
+#### 10:
 In the newly created project directory download [Podfile](https://github.com/jidomaps/unity_integration/blob/master/Podfile) and [MapsyncLib.podspec](https://github.com/jidomaps/unity_integration/blob/master/MapsyncLib.podspec).
 
 The content of `Podfile`:
@@ -107,16 +120,22 @@ end
 ```
 (notice `Unity-iPhone` corresponds to the name of the XCode project that Unity generated.)
 
-#### 10:
+#### 11:
 Run `pod install` in the terminal from within that same project directory.
 
-#### 11: 
-Close the XCode project and re-open the newly created `.xcworkspace` file.
+![alt text](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/PodInstall.png)
 
 #### 12: 
-Download [MapsyncWrapper.h](https://github.com/jidomaps/unity_integration/blob/master/MapsyncWrapper.h) and [MapsyncWrapper.m](https://github.com/jidomaps/unity_integration/blob/master/MapSyncWrapper.m) into the workspace `Classes` folder.
+Close the XCode project and re-open the newly created `.xcworkspace` file.
 
-#### 13:
+[gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/OpenWorkspace.gif)
+
+#### 13: 
+Copy [MapsyncWrapper.h](https://github.com/jidomaps/unity_integration/blob/master/MapsyncWrapper.h) and [MapsyncWrapper.m](https://github.com/jidomaps/unity_integration/blob/master/MapSyncWrapper.m) into the workspace `Classes` folder.
+
+[gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/AddMapsyncWrapperh.gif)
+
+#### 14:
 In your C# code, get the MapSession component and initialize it with the `Init()` function:
 
 ```
