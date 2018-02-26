@@ -141,3 +141,32 @@ Copy [MapsyncWrapper.h](https://github.com/jidomaps/unity_integration/blob/maste
  - You will need to set Swift Versions for SwiftyJSON and Alamofire cocoapods in XCode.
 
 ![alt text](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/SwiftLanuageVersion.png)
+
+# MapSession API Documentation
+
+In your C# code, access the `MapSession` component and initialize it with the `Init()` function:
+
+```
+GameObject mapSessionGameObject = GameObject.Find("MapSession");
+MapSession mapSession = mapSessionGameObject.GetComponent<MapSession> ();
+```
+
+`MapSession` will not start until `MapSession.Init()` has been called. `MapSession.Init()` should only be called once and it will start an `ARKitSession` if one hasn't been started already. `MapSession.Init()` takes as argument: 
+
+- `mapMode` (either `MapMode.MapModeMapping` or `MapMode.MapModeLocalization`)
+- `userId`
+- `mapId`
+- `developerKey`
+
+In `MapModeMapping`, `MapSession` is mapping the space that it sees. Assets can be saved in the space in Mapping Mode. In `MapModeLocalization`, previously saved assets are re-localized and their original saved position is resolved.
+
+`UserId` and `MapId` are user-provided identifiers used to match Mapping and Localization session data. Assets saved during a mapping session are associated with the `UserId` and `MapId` provided and those assets would be returned during a localization session that was initialized with the same `UserId` and `MapId` values.
+
+The developer key is a authentication key provided by Jido Maps for authenticated access to our API.
+
+After initializing `MapSession` bind to the events:
+- `AssetStoredEvent` -  Invoked after `MapSession.StroePlacements()` has been called. The bool event argument indicates whether or not the assets were saved successfully.
+- `AssetLoadedEvent` - Invoked when an asset has been relocalized in a localization session. The `MapAsset` event argument is the asset that was localized. 
+- `StatusChangedEvent` - Invoked on changes to `MapSesssion`'s status. The event argument is a string containing the new `MapSession` status.
+
+To store an asset during a mapping session, call `MapSession.StrePlacements()` with a list of the `MapAsset`s to be stored on the map.
