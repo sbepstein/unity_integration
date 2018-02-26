@@ -165,8 +165,8 @@ In `MapModeMapping`, `MapSession` is mapping the space that it sees. Assets can 
 The developer key is a authentication key provided by Jido Maps for authenticated access to our API.
 
 After initializing `MapSession` bind to the events:
-- `AssetStoredEvent` -  Invoked after `MapSession.StroePlacements()` has been called. The bool event argument indicates whether or not the assets were saved successfully.
+- `AssetStoredEvent` -  Invoked after `MapSession.StorePlacements()` has been called. The bool event argument indicates whether or not the assets were saved successfully.
 - `AssetLoadedEvent` - Invoked when an asset has been relocalized in a localization session. The `MapAsset` event argument is the asset that was localized. 
 - `StatusChangedEvent` - Invoked on changes to `MapSesssion`'s status. The event argument is a string containing the new `MapSession` status.
 
-To store an asset during a mapping session, call `MapSession.StrePlacements()` with a list of the `MapAsset`s to be stored on the map.
+To store an asset during a mapping session, call `MapSession.StorePlacements()` with a list of the `MapAsset`s to be stored on the map.
