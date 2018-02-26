@@ -99,7 +99,7 @@ Drag the MapSession prefab into the scene hierarchy.
 [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/DragMapsyncPrefab.gif)
 
 #### 8:
-In the Unity player settings, set the iOS deployment target to version 11.0. Build and run the Unity project for the iOS platform.
+In the Unity player settings, set the iOS deployment target to version 11.0.
 
 ![alt text](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/iOSVersion.png)
 
@@ -131,21 +131,13 @@ Close the XCode project and re-open the newly created `.xcworkspace` file.
 [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/OpenWorkspace.gif)
 
 #### 13: 
-Copy [MapsyncWrapper.h](https://github.com/jidomaps/unity_integration/blob/master/MapsyncWrapper.h) and [MapsyncWrapper.m](https://github.com/jidomaps/unity_integration/blob/master/MapSyncWrapper.m) into the workspace `Classes` folder.
+Copy [MapsyncWrapper.h](https://github.com/jidomaps/unity_integration/blob/master/MapsyncWrapper.h) and [MapsyncWrapper.m](https://github.com/jidomaps/unity_integration/blob/master/MapSyncWrapper.m) into the workspace `Classes` folder and add them to the XCode project.
 
 [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/AddMapsyncWrapperh.gif)
 
-#### 14:
-In your C# code, get the MapSession component and initialize it with the `Init()` function:
-
-```
-GameObject mapSessionGameObject = GameObject.Find("MapSession");
-MapSession mapSession = mapSessionGameObject.GetComponent<MapSession> ();
-```
-
-Bind to the events: `MapSession.StatusChangedEvent`, `MapSession.AssetLoadedEvent`, and `MapSession.AssetStoredEvent`.
-
 #### Notes:
- - You will need to set Swift Versions for SwiftyJSON and Alamofire cocoapods in XCode.
  - You will need to set the iOS deployment target to 10.0 for the Pods-Unity-iPhone target in XCode.
  - The project may not build in version 9.3 beta of XCode. 
+ - You will need to set Swift Versions for SwiftyJSON and Alamofire cocoapods in XCode.
+
+![alt text](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/SwiftLanuageVersion.png)
