@@ -1,4 +1,4 @@
-# Getting Started With Jido and Unity
+# Getting Started with Jido and Unity
 
 ## Unity Project Setup
 
