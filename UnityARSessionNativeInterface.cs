@@ -802,6 +802,7 @@ namespace UnityEngine.XR.iOS {
 
         public void RunWithConfigAndOptions(ARKitWorldTrackingSessionConfiguration config, UnityARSessionRunOption runOptions)
         {
+            config.alignment = UnityARAlignment.UnityARAlignmentGravityAndHeading;
             #if !UNITY_EDITOR
             StartWorldTrackingSessionWithOptions (m_NativeARSession, config, runOptions);
             #else
@@ -811,6 +812,7 @@ namespace UnityEngine.XR.iOS {
 
         public void RunWithConfig(ARKitWorldTrackingSessionConfiguration config)
         {
+            config.alignment = UnityARAlignment.UnityARAlignmentGravityAndHeading;
             #if !UNITY_EDITOR
             StartWorldTrackingSession(m_NativeARSession, config);
             #else
@@ -826,6 +828,7 @@ namespace UnityEngine.XR.iOS {
 
         public void RunWithConfigAndOptions(ARKitSessionConfiguration config, UnityARSessionRunOption runOptions)
         {
+            config.alignment = UnityARAlignment.UnityARAlignmentGravityAndHeading;
             #if !UNITY_EDITOR
             StartSessionWithOptions (m_NativeARSession, config, runOptions);
             #endif
@@ -833,6 +836,7 @@ namespace UnityEngine.XR.iOS {
 
         public void RunWithConfig(ARKitSessionConfiguration config)
         {
+            config.alignment = UnityARAlignment.UnityARAlignmentGravityAndHeading;
             #if !UNITY_EDITOR
             StartSession(m_NativeARSession, config);
             #endif
