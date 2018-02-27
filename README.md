@@ -26,6 +26,9 @@ public IntPtr GetSession()
     #endif
 }
 ```
+
+Also, this change configures the ARSession to start with [z-axis set to true-north](https://developer.apple.com/documentation/arkit/arconfiguration.worldalignment/2873776-gravityandheading).
+
  - Replace `ARSessionNative.mm` (also in `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface`) with [ARSessionNative.mm](https://github.com/jidomaps/unity_integration/blob/master/ARSessionNative.mm). [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/ReplaceARSessionNative.gif)
 
 The new `ARSession.mm` adds:
