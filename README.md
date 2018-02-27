@@ -128,31 +128,46 @@ end
 <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/SwiftLanuageVersion.png" width="500">
 
 
-# MapSession API Documentation
+# How to Save AR Sessions with Jido 
 
-In your C# code, access the `MapSession` component and initialize it with the `Init()` function:
+## Initialization
+
+Jido runs in the background during an `ARKit` ARSession to handle data management and synchronization with the API. To start a MapSession, you must access the Jido `MapSession` component as follows:
 
 ```
 GameObject mapSessionGameObject = GameObject.Find("MapSession");
 MapSession mapSession = mapSessionGameObject.GetComponent<MapSession> ();
 ```
 
-`MapSession` will not start until `MapSession.Init()` has been called. `MapSession.Init()` should only be called once and it will start an `ARKitSession` if one hasn't been started already. `MapSession.Init()` takes as argument: 
+Lastly, you must initialize a unique map session (this should only be done only once for each `ARKit` ARSession):
 
-- `mapMode` (either `MapMode.MapModeMapping` or `MapMode.MapModeLocalization`)
-- `userId`
-- `mapId`
-- `developerKey`
+`MapSession.Init (MapMode mapMode, string userId, string mapId, string developerKey)`
 
-In `MapModeMapping`, `MapSession` is mapping the space that it sees. Assets can be saved in the space in Mapping Mode. In `MapModeLocalization`, previously saved assets are re-localized and their original saved position is resolved.
+MapMode determines if you are attempting to create a new session or are relocalizing assets on a map from a previously stored session. Your userID, and mapID are set to uniquely identify your session. Your developer key is used for authentication and is unique to your Jido account. 
 
-`UserId` and `MapId` are user-provided identifiers used to match Mapping and Localization session data. Assets saved during a mapping session are associated with the `UserId` and `MapId` provided and those assets would be returned during a localization session that was initialized with the same `UserId` and `MapId` values.
+## `MapSession` Events
 
-The developer key is a authentication key provided by Jido Maps for authenticated access to our API.
+After initializing `MapSession` you can bind to the following events:
+- `AssetStoredEvent` -  Invoked after `MapSession.StorePlacements()` has been called. The `bool` event argument indicates whether or not the assets were saved successfully.
+- `AssetLoadedEvent` - Invoked when an asset has been relocalized in a localization session. The `MapAsset` event argument is the asset that has been localized. 
+- `StatusChangedEvent` - Invoked on changes to `MapSesssion`'s status. The event argument is a `string` containing the new `MapSession` status.
 
-After initializing `MapSession` bind to the events:
-- `AssetStoredEvent` -  Invoked after `MapSession.StorePlacements()` has been called. The bool event argument indicates whether or not the assets were saved successfully.
-- `AssetLoadedEvent` - Invoked when an asset has been relocalized in a localization session. The `MapAsset` event argument is the asset that was localized. 
-- `StatusChangedEvent` - Invoked on changes to `MapSesssion`'s status. The event argument is a string containing the new `MapSession` status.
+## Saving an AR Session
 
-To store an asset during a mapping session, call `MapSession.StorePlacements()` with a list of the `MapAsset`s to be stored on the map.
+When in `MapMode.MapModeMapping`, assets can be saved  by calling `MapSession.StorePlacements(List<MapAsset>)` with a list of the `MapAsset`s to be stored on the map.
+
+`StorePlacement()` will store a `List` of `MapAsset`s which are used to reference assets or waypoints in your user's AR Session (more information about `MapAsset` below). Shortly calling `StorePlacement()` the `AssetStoredEvent` will be invoked with a `bool` indicating whether or not the placement assets were stored successfully.
+
+## Reloading an AR Session
+
+To reload an AR Session, `MapSession` must be initialized with `MapMode.MapModeLocalization`. When an asset has been re-localized in a localization session, the `AssetLoadedEvent` will be invoked with the newly localized `MapAsset` that was saved by the user in a prior mapping session and transformed to the current session's coordinate frame. 
+
+To use the `MapAssets` in your Unity project, simply create GameObjects that correspond to the saved AssetIds and place them in your scene using the position and orientation that was returned. Now the assets will be back in the session where you had left them! 
+
+## `MapAsset` Class
+
+The `MapAsset` stores the information necessary for each asset that is saved or reloaded from the Jido API. Each `MapAsset` has three member variables that are set when initialized.
+
+`public MapAsset(string assetId, float orientation, float x, float y, float z)`
+
+`assetId` is a custom identifier that can be set to any value. The position coordinates are relative to the global coordinate system of the asset in the saved session. The orientation is the y-axis orientation of the asset in the saved session.
