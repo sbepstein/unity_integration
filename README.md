@@ -1,4 +1,4 @@
-# Getting Started With Mapsync and Unity
+# Getting Started With Jido and Unity
 
 ## Unity Project Setup
 
@@ -93,7 +93,7 @@ extern "C" void _RegisterUnityCallbacks(char* callbackGameObject, char* assetLoa
  
  - In the Unity player settings, set the iOS deployment target to version 11.0. 
 
- <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/iOSVersion.png" width="500">
+<img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/iOSVersion.png" width="500">
  
  - Build and run the Unity project for the iOS platform. 
 
@@ -171,3 +171,13 @@ The `MapAsset` stores the information necessary for each asset that is saved or 
 `public MapAsset(string assetId, float orientation, float x, float y, float z)`
 
 `assetId` is a custom identifier that can be set to any value. The position coordinates are relative to the global coordinate system of the asset in the saved session. The orientation is the y-axis orientation of the asset in the saved session.
+
+## Notes
+
+ - Jido configures ARSession to run with [z-axis set to true-north](https://developer.apple.com/documentation/arkit/arconfiguration.worldalignment/2873776-gravityandheading). This is necessary, and should not be manually overridden. 
+ - The phone must have an internet connection. 
+ - For an ideal relocalization, the user should be encouraged to move around so that they will cover an "interesting" part of the saved session.
+
+<img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/media-20180227.png" width="500">
+
+<img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/relocalization_explanation_V2_bad.png" width="500">
