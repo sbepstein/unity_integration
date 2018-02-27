@@ -1,21 +1,19 @@
 # Getting Started With Mapsync and Unity
 
-#### 1:
-Create a new Unity Project.
+## Unity Project Setup
 
-#### 2:
-Download and Import the `Unity ARKit Plugin` from the Asset Store.
+ - Create a new Unity Project.
 
-#### 3: 
-Download this Unity Integration repository to your computer so you can easily copy over the files you need into your Unity project.
+ - Download and Import the `Unity ARKit Plugin` from the Asset Store.
 
-#### 4:
-Drag the folder [MapsyncLibPlugin](https://github.com/jidomaps/unity_integration/tree/master/MapsyncLibPlugin) into the Unity project window. The `MapsyncLibPlugin` folder contains a `MapSession` prefab and a `MapSession.cs` script that exposes functionality for saving and relocalizing assets in a Unity project.
 
-[gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/Drag.gif)
+## Adding Mapsync
 
-#### 5:
-Replace `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface/UnityARSessionNativeInterface.cs` with [UnityARSessionNativeInterface.cs](https://github.com/jidomaps/unity_integration/blob/master/UnityARSessionNativeInterface.cs).
+ - Download this Unity Integration repository to your computer so you can easily copy over the files you need into your Unity project.
+
+ - Drag the folder [MapsyncLibPlugin](https://github.com/jidomaps/unity_integration/tree/master/MapsyncLibPlugin) into the Unity project window. The `MapsyncLibPlugin` folder contains a `MapSession` prefab and a `MapSession.cs` script that exposes functionality for saving and relocalizing assets in a Unity project. [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/Drag.gif)
+ 
+ - Replace `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface/UnityARSessionNativeInterface.cs` with [UnityARSessionNativeInterface.cs](https://github.com/jidomaps/unity_integration/blob/master/UnityARSessionNativeInterface.cs).
 
 The new `UnityARSessionNativeInterface.cs` adds the following method: 
 ```
@@ -28,11 +26,7 @@ public IntPtr GetSession()
     #endif
 }
 ```
-
-#### 6:
-Replace `ARSessionNative.mm` (also in `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface`) with [ARSessionNative.mm](https://github.com/jidomaps/unity_integration/blob/master/ARSessionNative.mm).
-
-[gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/ReplaceARSessionNative.gif)
+ - Replace `ARSessionNative.mm` (also in `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface`) with [ARSessionNative.mm](https://github.com/jidomaps/unity_integration/blob/master/ARSessionNative.mm). [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/ReplaceARSessionNative.gif)
 
 The new `ARSession.mm` adds:
 
@@ -93,23 +87,21 @@ extern "C" void _RegisterUnityCallbacks(char* callbackGameObject, char* assetLoa
 }
 ```
 
-#### 7: 
-Drag the MapSession prefab into the scene hierarchy.
+ - Drag the MapSession prefab into the scene hierarchy. [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/DragMapsyncPrefab.gif)
 
-[gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/DragMapsyncPrefab.gif)
+## Building the Unity Project
+ 
+ - In the Unity player settings, set the iOS deployment target to version 11.0. 
 
-#### 8:
-In the Unity player settings, set the iOS deployment target to version 11.0.
+ <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/iOSVersion.png" width="500">
+ 
+ - Build and run the Unity project for the iOS platform. 
 
-![alt text](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/iOSVersion.png)
+ <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/BuildAndRun.png" width="500">
 
-#### 9:
-Build and run the Unity project for the iOS platform.
+## Building the iOS Project
 
-![alt text](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/BuildAndRun.png)
-
-#### 10:
-In the newly created project directory download [Podfile](https://github.com/jidomaps/unity_integration/blob/master/Podfile) and [MapsyncLib.podspec](https://github.com/jidomaps/unity_integration/blob/master/MapsyncLib.podspec).
+ - In the newly created project directory download [Podfile](https://github.com/jidomaps/unity_integration/blob/master/Podfile) and [MapsyncLib.podspec](https://github.com/jidomaps/unity_integration/blob/master/MapsyncLib.podspec).
 
 The content of `Podfile`:
 ```
@@ -120,27 +112,21 @@ end
 ```
 (notice `Unity-iPhone` corresponds to the name of the XCode project that Unity generated.)
 
-#### 11:
-Run `pod install` in the terminal from within that same project directory.
+ - Run `pod install` in the terminal from within that same project directory. 
 
-![alt text](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/PodInstall.png)
+<img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/PodInstall.png" width="500">
 
-#### 12: 
-Close the XCode project and re-open the newly created `.xcworkspace` file.
+ - Close the XCode project and re-open the newly created `.xcworkspace` file. [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/OpenWorkspace.gif)
 
-[gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/OpenWorkspace.gif)
+ - Copy [MapsyncWrapper.h](https://github.com/jidomaps/unity_integration/blob/master/MapsyncWrapper.h) and [MapsyncWrapper.m](https://github.com/jidomaps/unity_integration/blob/master/MapSyncWrapper.m) into the workspace `Classes` folder and add them to the XCode project. [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/AddMapsyncWrapperh.gif)
 
-#### 13: 
-Copy [MapsyncWrapper.h](https://github.com/jidomaps/unity_integration/blob/master/MapsyncWrapper.h) and [MapsyncWrapper.m](https://github.com/jidomaps/unity_integration/blob/master/MapSyncWrapper.m) into the workspace `Classes` folder and add them to the XCode project.
-
-[gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/AddMapsyncWrapperh.gif)
-
-#### Notes:
+## Notes:
  - You will need to set the iOS deployment target to 10.0 for the Pods-Unity-iPhone target in XCode.
  - The project may not build in version 9.3 beta of XCode. 
  - You will need to set Swift Versions for SwiftyJSON and Alamofire cocoapods in XCode.
 
-![alt text](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/SwiftLanuageVersion.png)
+<img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/SwiftLanuageVersion.png" width="500">
+
 
 # MapSession API Documentation
 
