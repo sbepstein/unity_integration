@@ -9,7 +9,7 @@
 
 ## Adding Mapsync
 
- - Download this Unity Integration repository to your computer so you can easily copy over the files you need into your Unity project.
+ - Download this Unity Integration repository to your computer so you can easily copy over the files you need into your Unity project. This repo contains all the files you will need to integrate Jido into your Unity project.
 
  - Drag the folder [MapsyncLibPlugin](https://github.com/jidomaps/unity_integration/tree/master/MapsyncLibPlugin) into the Unity project window. The `MapsyncLibPlugin` folder contains a `MapSession` prefab and a `MapSession.cs` script that exposes functionality for saving and relocalizing assets in a Unity project. [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/Drag.gif)
  
