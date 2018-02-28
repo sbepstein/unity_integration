@@ -132,6 +132,8 @@ end
 <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/SwiftLanuageVersion.png" width="500">
 
 
+# [Jido With Unity Demo Project](https://github.com/jidomaps/unity_demo/)
+
 # How to Save AR Sessions with Jido 
 
 ## Initialization
