@@ -100,7 +100,7 @@ extern "C" void _RegisterUnityCallbacks(char* callbackGameObject, char* assetLoa
  
  - Build and run the Unity project for the iOS platform. 
 
- <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/BuildAndRun.png" width="500">
+<img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/BuildAndRun.png" width="500">
 
 ## Building the iOS Project
 
@@ -125,7 +125,8 @@ end
 
 ## Notes:
  - You will need to set the iOS deployment target to 10.0 for the Pods-Unity-iPhone target in XCode.
- - The project may not build in version 9.3 beta of XCode. 
+ - To build this project in version 9.3 beta of XCode, you will need to change: `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.2' }` to:
+ `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.2-beta' }` in `MapsyncLib.podspec`.
  - You will need to set Swift Versions for SwiftyJSON and Alamofire cocoapods in XCode.
 
 <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/SwiftLanuageVersion.png" width="500">

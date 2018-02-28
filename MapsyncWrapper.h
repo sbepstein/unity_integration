@@ -7,9 +7,8 @@
 
 typedef NS_ENUM(NSInteger, Mode)
 {
-    ModeUnknown = 0,
-    ModeMapping = 1,
-    ModeLocalization = 2,
+    ModeMapping = 0,
+    ModeLocalization = 1,
 };
 
 @interface MapsyncWrapper : NSObject
@@ -30,3 +29,4 @@ typedef NS_ENUM(NSInteger, Mode)
 - (void)updateWithFrame:(ARFrame*)frame;
 
 @end
+
