@@ -49,4 +49,5 @@ public class MapSession : MonoBehaviour {
 	private void PlacementStored(string stored) {
 		AssetStoredEvent (stored == "1");
 	}
+
 }

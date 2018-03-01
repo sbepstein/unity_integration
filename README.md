@@ -104,24 +104,11 @@ extern "C" void _RegisterUnityCallbacks(char* callbackGameObject, char* assetLoa
 
 ## Building the iOS Project
 
- - In the newly created project directory download [Podfile](https://github.com/jidomaps/unity_integration/blob/master/Podfile) and [MapsyncLib.podspec](https://github.com/jidomaps/unity_integration/blob/master/MapsyncLib.podspec).
-
-The content of `Podfile`:
-```
-target 'Unity-iPhone' do
-  use_frameworks!
-  pod 'MapsyncLib', :podspec => 'MapsyncLib.podspec'
-end
-```
-(notice `Unity-iPhone` corresponds to the name of the XCode project that Unity generated.)
-
- - Run `pod install` in the terminal from within that same project directory. 
+ - Run `pod install` in the terminal in the newly created project directory.
 
 <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/PodInstall.png" width="500">
 
  - Close the XCode project and re-open the newly created `.xcworkspace` file. [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/OpenWorkspace.gif)
-
- - Copy [MapsyncWrapper.h](https://github.com/jidomaps/unity_integration/blob/master/MapsyncWrapper.h) and [MapsyncWrapper.m](https://github.com/jidomaps/unity_integration/blob/master/MapSyncWrapper.m) into the workspace `Classes` folder and add them to the XCode project. [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/AddMapsyncWrapperh.gif)
 
 ## Notes:
  - You will need to set the iOS deployment target to 10.0 for the Pods-Unity-iPhone target in XCode.
