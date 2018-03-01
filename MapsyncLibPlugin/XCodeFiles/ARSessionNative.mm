@@ -1178,3 +1178,4 @@ extern "C" void _RegisterUnityCallbacks(char* callbackGameObject, char* assetLoa
     [MapsyncWrapper setStatusUpdatedCallbackFunction:[NSString stringWithUTF8String:statusUpdatedCallback]];
     [MapsyncWrapper setStorePlacementCallbackFunction:[NSString stringWithUTF8String:storePlacementCallback]];
 }
+
