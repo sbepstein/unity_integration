@@ -9,9 +9,7 @@
 
 ## Adding Mapsync
 
- - Download this Unity Integration repository to your computer so you can easily copy over the files you need into your Unity project. This repo contains all the files you will need to integrate Jido into your Unity project.
-
- - Drag the folder [MapsyncLibPlugin](https://github.com/jidomaps/unity_integration/tree/master/MapsyncLibPlugin) into the Unity project window. The `MapsyncLibPlugin` folder contains a `MapSession` prefab and a `MapSession.cs` script that exposes functionality for saving and relocalizing assets in a Unity project. [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/Drag.gif)
+ - Download this Unity Integration repository to your computer and drag the folder [MapsyncLibPlugin](https://github.com/jidomaps/unity_integration/tree/master/MapsyncLibPlugin) into the Unity project window. The `MapsyncLibPlugin` folder contains a `MapSession` prefab and a `MapSession.cs` script that exposes functionality for saving and relocalizing assets in a Unity project. [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/Drag.gif)
  
  - Delete `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface/UnityARSessionNativeInterface.cs`. The `MapsyncLibPlugin` version of this file adds the following method:
 
@@ -32,12 +30,17 @@ And configures the ARSession to start with [z-axis set to true-north](https://de
 
 The `MapsyncLibPlugin` version of this file adds:
 
- - `#import "MapsyncWrapper.h"` 
- - After line 669 add the line:
-  `[[MapsyncWrapper sharedInstance] updateWithFrame:frame];`
- Line 669 is the last line in the function: 
+`import "MapsyncWrapper.h"` 
+
+After line 669 add the line:
+
+ `[[MapsyncWrapper sharedInstance] updateWithFrame:frame];`
+
+Line 669 is the last line in the function: 
+
  `- (void)session:(ARSession *)session didUpdateFrame:(ARFrame *)frame`
-  - The following functions at the bottom of the file:
+
+The following functions at the bottom of the file:
 
 ```
 
@@ -111,9 +114,10 @@ extern "C" void _RegisterUnityCallbacks(char* callbackGameObject, char* assetLoa
 
 ## Notes:
  - You will need to set the iOS deployment target to 10.0 for the Pods-Unity-iPhone target in XCode.
- - To build this project in version 9.3 beta of XCode, you will need to change: `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.2' }` to:
+ - To build this project in version 9.3 beta of XCode, you will need to append the `-beta` suffix to the package version. For example: `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.2' }` to:
  `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.2-beta' }` in `MapsyncLib.podspec`.
  - You will need to set Swift Versions for SwiftyJSON and Alamofire cocoapods in XCode.
+ - If you get a `Shell Script Invocation Error` on the build step: `Run custom shell script '[CP] Check Pods Manifest.lock'` try deleting the project pods folder and `Podfile.lock` and running `pod install` again.
 
 <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/SwiftLanuageVersion.png" width="500">
 
