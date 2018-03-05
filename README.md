@@ -177,3 +177,5 @@ The `MapAsset` stores the information necessary for each asset that is saved or 
 <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/media-20180227.png" width="500">
 
 <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/relocalization_explanation_V2_bad.png" width="500">
+
+[Swift API Documentation](https://docs.google.com/document/d/1GyMbAHtKBAUwj8a8tuu4RE6XwrOGbop8OTIluU-16b8/edit#heading=h.wyo6gjs64j8q)
