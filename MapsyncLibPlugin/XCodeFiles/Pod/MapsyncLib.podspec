@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.author       = { "Jaeyong Sung" => "jae@mapsync.io" }
   s.platform     = :ios, "11.0"
-  s.source            = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.2' }
+  s.source            = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.4' }
   s.ios.deployment_target = '11.0'
   s.ios.vendored_frameworks = 'MapsyncLib.framework'
   s.exclude_files = "Classes/Exclude"
