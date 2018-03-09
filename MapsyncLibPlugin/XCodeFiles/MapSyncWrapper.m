@@ -111,12 +111,6 @@ static NSString* storePlacementCallback = @"";
 }
 
 - (void)uploadAssets:(NSArray*)array {
-    if (self.mode != ModeMapping)
-    {
-        NSLog(@"Error, not in mapping mode");
-        return;
-    }
-    
     BOOL result = [self.mapSession storePlacementWithAssets:array callback:^(BOOL stored)
     {
        NSLog(@"model stored: %i", stored);
