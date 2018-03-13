@@ -114,8 +114,8 @@ extern "C" void _RegisterUnityCallbacks(char* callbackGameObject, char* assetLoa
 
 ## Notes:
  - You will need to set the iOS deployment target to 10.0 for the Pods-Unity-iPhone target in XCode.
- - To build this project in version 9.3 beta of XCode, you will need to append the `-beta` suffix to the package version. For example: `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.2' }` to:
- `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.2-beta' }` in `MapsyncLib.podspec`.
+ - To build this project in version 9.3 beta of XCode, you will need to append the `-beta` suffix to the package version. For example: `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.6' }` to:
+ `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.6-beta' }` in `MapsyncLib.podspec`.
  - You will need to set Swift Versions for SwiftyJSON and Alamofire cocoapods in XCode.
  - If you get a `Shell Script Invocation Error` on the build step: `Run custom shell script '[CP] Check Pods Manifest.lock'` try deleting the project pods folder and `Podfile.lock` and running `pod install` again.
 
