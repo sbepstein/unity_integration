@@ -24,7 +24,7 @@
 
  - Set the provisioning profile for your XCode project
 
- - Close the XCode project and then double click on `pods.command` in the newly created project directory.
+ - Close the XCode project and then double click on `pods.command` in the newly created project directory. This command installs all necessary cocoapods and opens the newly created `.xcworkspace` file.
 
 ## Notes:
  - To build this project in version 9.3 beta of XCode, you will need to append the `-beta` suffix to the package version. For example: `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.6' }` to:
