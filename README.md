@@ -4,95 +4,11 @@
 
  - Create a new Unity Project.
 
- - Download and Import the `Unity ARKit Plugin` from the Asset Store.
+ - Download the JidoMaps plugin for Unity [here](https://github.com/jidomaps/unity_integration/blob/NewUnityPluginRefactor/JidoMaps.unitypackage)
 
+ - In the Unity menu, go to Assets > Import Package > Custom Package and select this package file to import.
 
-## Adding Mapsync
-
- - Download this Unity Integration repository to your computer and drag the folder [MapsyncLibPlugin](https://github.com/jidomaps/unity_integration/tree/master/MapsyncLibPlugin) into the Unity project window. The `MapsyncLibPlugin` folder contains a `MapSession` prefab and a `MapSession.cs` script that exposes functionality for saving and relocalizing assets in a Unity project. [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/Drag.gif)
- 
- - Delete `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface/UnityARSessionNativeInterface.cs`. The `MapsyncLibPlugin` version of this file adds the following method:
-
-```
-public IntPtr GetSession() 
-{
-    #if !UNITY_EDITOR
-        return m_NativeARSession;
-    #else
-        return IntPtr.Zero;
-    #endif
-}
-```
-
-And configures the ARSession to start with [z-axis set to true-north](https://developer.apple.com/documentation/arkit/arconfiguration.worldalignment/2873776-gravityandheading).
-
- - Delete `ARSessionNative.mm` (also in `UnityARKitPlugin/Plugins/iOS/UnityARKit/Nativeinterface`).
-
-The `MapsyncLibPlugin` version of this file adds:
-
-`import "MapsyncWrapper.h"` 
-
-After line 669 add the line:
-
- `[[MapsyncWrapper sharedInstance] updateWithFrame:frame];`
-
-Line 669 is the last line in the function: 
-
- `- (void)session:(ARSession *)session didUpdateFrame:(ARFrame *)frame`
-
-The following functions at the bottom of the file:
-
-```
-
-extern "C" void* _CreateMapsyncSession(void* nativeSession, char* mapId, char* userId, char* developerKey, BOOL isMappingMode)
-{
-    Mode mode = isMappingMode ? ModeMapping : ModeLocalization;
-    UnityARSession* session = (__bridge UnityARSession*)nativeSession;
-    
-    [MapsyncWrapper sharedInstanceWithARSession:session->_session mapMode:mode mapId:[NSString stringWithUTF8String:mapId] userId:[NSString stringWithUTF8String:userId] developerKey:[NSString stringWithUTF8String:developerKey]];
-    
-    return (__bridge_retained void*) [MapsyncWrapper sharedInstance];
-}
-
-extern "C" void _SaveAssets(char* json)
-{
-    NSError *error = nil;
-    
-    NSData* data = [[NSString stringWithUTF8String:json] dataUsingEncoding:NSUTF8StringEncoding];
-    id objects = [NSJSONSerialization
-                 JSONObjectWithData:data
-                 options:0
-                 error:&error];
-    
-    if(error)
-    {
-        return;
-    }
-    
-    NSMutableArray* assets = [[NSMutableArray alloc] init];
-    
-    for (id object in objects) {
-        NSString *assetId = object[@"AssetId"];
-        SCNVector3 position = SCNVector3Make([object[@"X"] floatValue], [object[@"Y"] floatValue], [object[@"Z"] floatValue]);
-        CGFloat orientation = [object[@"Orientation"] floatValue];
-        
-        MapAsset* asset = [[MapAsset alloc] init:assetId :position :orientation];
-        [assets addObject:asset];
-    }
-    
-    [[MapsyncWrapper sharedInstance] uploadAssets:assets];
-}
-
-extern "C" void _RegisterUnityCallbacks(char* callbackGameObject, char* assetLoadedCallback, char* statusUpdatedCallback, char* storePlacementCallback)
-{
-    [MapsyncWrapper setUnityCallbackGameObject:[NSString stringWithUTF8String:callbackGameObject]];
-    [MapsyncWrapper setAssetLoadedCallbackFunction:[NSString stringWithUTF8String:assetLoadedCallback]];
-    [MapsyncWrapper setStatusUpdatedCallbackFunction:[NSString stringWithUTF8String:statusUpdatedCallback]];
-    [MapsyncWrapper setStorePlacementCallbackFunction:[NSString stringWithUTF8String:storePlacementCallback]];
-}
-```
-
- - Drag the MapSession prefab into the scene hierarchy. [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/DragMapsyncPrefab.gif)
+ - Drag the MapSession prefab, located in the `JidoMaps` folder, into the scene hierarchy.
 
 ## Building the Unity Project
  
@@ -100,27 +16,19 @@ extern "C" void _RegisterUnityCallbacks(char* callbackGameObject, char* assetLoa
 
 <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/iOSVersion.png" width="500">
  
- - Build and run the Unity project for the iOS platform. 
+ - Build the Unity project for the iOS platform. 
 
 <img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/BuildAndRun.png" width="500">
 
 ## Building the iOS Project
 
- - Run `pod install` in the terminal in the newly created project directory.
+ - Set the provisioning profile for your XCode project
 
-<img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/PodInstall.png" width="500">
-
- - Close the XCode project and re-open the newly created `.xcworkspace` file. [gif](https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/OpenWorkspace.gif)
+ - Close the XCode project and then double click on `pods.command` in the newly created project directory.
 
 ## Notes:
- - You will need to set the iOS deployment target to 10.0 for the Pods-Unity-iPhone target in XCode.
  - To build this project in version 9.3 beta of XCode, you will need to append the `-beta` suffix to the package version. For example: `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.6' }` to:
  `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.6-beta' }` in `MapsyncLib.podspec`.
- - You will need to set Swift Versions for SwiftyJSON and Alamofire cocoapods in XCode.
- - If you get a `Shell Script Invocation Error` on the build step: `Run custom shell script '[CP] Check Pods Manifest.lock'` try deleting the project pods folder and `Podfile.lock` and running `pod install` again.
-
-<img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/SwiftLanuageVersion.png" width="500">
-
 
 # [Jido With Unity Demo Project](https://github.com/jidomaps/unity_demo/)
 
