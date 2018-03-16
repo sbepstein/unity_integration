@@ -10,6 +10,10 @@
 
  - Drag the MapSession prefab, located in the `JidoMaps` folder, into the scene hierarchy.
 
+ - Click on the MapSession prefab and set the developer key in the Unity Inspector Window.
+
+<img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/DeveloperKeyInput.png" width="500">
+
 ## Building the Unity Project
  
  - In the Unity player settings, set the iOS deployment target to version 11.0. 
