@@ -34,6 +34,10 @@
  - To build this project in version 9.3 beta of XCode, you will need to append the `-beta` suffix to the package version. For example: `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.6' }` to:
  `s.source = { :git => 'https://github.com/jidomaps/jido_pods.git', :tag => 'v0.1.6-beta' }` in `MapsyncLib.podspec`.
 
+ - Unity may produce an XCode project with spurious build errors on the first Unity project build, but these errors go away on subsequent "append" builds.
+
+<img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/XCodeErrors.png" width="500">
+
 # [Jido With Unity Demo Project](https://github.com/jidomaps/unity_demo/)
 
 # How to Save AR Sessions with Jido 
