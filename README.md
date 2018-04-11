@@ -4,7 +4,7 @@
 
  - Create a new Unity Project.
 
- - Download the JidoMaps plugin for Unity [here](https://github.com/jidomaps/unity_integration/blob/NewUnityPluginRefactor/JidoMaps.unitypackage)
+ - Download the JidoMaps plugin for Unity [here](https://github.com/jidomaps/unity_integration/raw/master/JidoMaps.unitypackage)
 
  - In the Unity menu, go to Assets > Import Package > Custom Package and select this package file to import.
 
