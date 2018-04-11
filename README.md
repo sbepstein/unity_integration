@@ -18,7 +18,7 @@
  
  - In the Unity player settings, set the iOS deployment target to version 11.0. 
 
-<img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/iOSVersion.png" width="500">
+<img src="https://s3-us-west-2.amazonaws.com/unity-integration-screenshots/UnityiOSVersion.png" width="500">
  
  - Build the Unity project for the iOS platform. 
 
